@@ -30,8 +30,8 @@ http://localhost:8080/swagger-ui/index.html#/
     and upvote/ downvote only once
 - Comments: Users can add comments to both questions and answers.
 - Tag System: Tags cannot have spaces, and the system removes spaces for searches.
-- Homepage Ranking: Question priority is calculated based on the creationDate
-  In case of a tie, the most voted question is displayed first
+- Homepage Ranking: Question priority is calculated based on the number of upvotes
+  In case of a tie, the most recent question is displayed first
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
