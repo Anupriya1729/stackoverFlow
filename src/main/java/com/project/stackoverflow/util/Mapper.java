@@ -39,6 +39,12 @@ public class Mapper {
         return postDTO;
     }
 
+    public static List<PostDTO> mapPostsToPostDTOList(List<Post> posts) {
+        return posts.stream()
+                .map(Mapper::mapToPostDTO)
+                .collect(Collectors.toList());
+    }
+
     public static QuestionsDTO mapPostToQuestionsDTO(Post post) {
         QuestionsDTO questionsDTO = new QuestionsDTO();
         questionsDTO.setQuestionId(post.getId());

@@ -3,6 +3,7 @@ package com.project.stackoverflow.controller;
 import com.project.stackoverflow.constant.PostType;
 import com.project.stackoverflow.dto.PostDTO;
 import com.project.stackoverflow.exception.UserNotFoundException;
+import com.project.stackoverflow.service.AnswerService;
 import com.project.stackoverflow.service.PostService;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +26,18 @@ public class AnswerController {
     @Autowired
     PostService postService;
 
+    @Autowired
+    AnswerService answerService;
+
     @GetMapping("/{userId}")
     public ResponseEntity<List<PostDTO>> getAllAnswersForUser(@PathVariable @NotNull Long userId) throws UserNotFoundException {
         List<PostDTO> updatedAnswers = postService.getAllPostsForUser(userId, PostType.ANSWER);
         return ResponseEntity.ok(updatedAnswers);
+    }
+
+    @GetMapping("/questionId/{questionId}")
+    public ResponseEntity<List<PostDTO>> getAllAnswersForQuestions(@PathVariable @NotNull Long questionId){
+        List<PostDTO> answers = answerService.getAllAnswersForQuestion(questionId);
+        return ResponseEntity.ok(answers);
     }
 }
