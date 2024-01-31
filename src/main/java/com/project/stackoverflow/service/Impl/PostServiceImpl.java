@@ -89,14 +89,14 @@ public class PostServiceImpl implements PostService {
             questionService.addTagsToQuestion(post.getId(), createPostRequest.getTags(), true, post);
         }
 
-        user.get().addPost(post);
-
         // Map the post to PostDTO
         PostDTO postDTO = mapToPostDTO(post);
         if (PostType.ANSWER.equals(post.getPostType())) {
             postDTO.setParentQuestion(mapToPostDTO(post.getParentQuestion()));
             postDTO.setParentId(post.getParentQuestion().getId());
         }
+
+        user.get().addPost(post);
 
         return postDTO;
     }
@@ -147,6 +147,11 @@ public class PostServiceImpl implements PostService {
         }
 
         return postDTO;
+    }
+
+    public Post findPostById(Long postId) throws PostNotFoundException {
+        Optional<Post> post = postRepository.findById(postId);
+        return post.get();
     }
 
     public PostDTO upvotePost(Long postId, Long userId) throws PostNotFoundException, UserNotFoundException {

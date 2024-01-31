@@ -1,6 +1,7 @@
 package com.project.stackoverflow.exception;
 
 import com.project.stackoverflow.dto.ErrorResponseDTO;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -41,5 +42,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(new ErrorResponseDTO("An unexpected error occurred. "+ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDTO> handleUserAlreadyExistsException(UserAlreadyExistsException e) {
+        return new ResponseEntity<>(new ErrorResponseDTO("The email, phone number or username is already in use."), HttpStatus.BAD_REQUEST);
+    }
 }
 

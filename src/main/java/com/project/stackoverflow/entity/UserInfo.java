@@ -15,7 +15,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_info")
+@Table(name = "user_info", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"email", "phone"})
+})
 public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +26,15 @@ public class UserInfo {
 
     private int reputationPoints;
     private String name;
+
     private String email;
+
     private String phone;
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+
+    @Column(unique = true)
     private String username;
     private String password;
 

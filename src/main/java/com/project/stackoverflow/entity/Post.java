@@ -79,6 +79,13 @@ public class Post implements Serializable {
         }
     }
 
+    public void setUser(UserInfo user) {
+        this.user = user;
+        if (user != null && !user.getPosts().contains(this)) {
+            user.getPosts().add(this);
+        }
+    }
+
     @Override
     public String toString() {
         return "Post{" +

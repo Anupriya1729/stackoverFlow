@@ -25,6 +25,13 @@ public class PostController {
     public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO createPostRequest) throws UserNotFoundException, ParentQuestionNotFoundException, MultipleTagsFoundException {
         //createPost method to determine whether it's a question or an answer
         //based on the presence of the parentId in the request
+
+//        @RequestParam("media") MultipartFile[] mediaFiles
+//        List of media is stored in fileStorage and mediaUrls are stored in the DB
+//        List<String> mediaUrls = Arrays.stream(mediaFiles)
+//                .map(fileStorageService::storeFile)
+//                .collect(Collectors.toList());
+
         PostDTO createdQuestion = postService.createPost(createPostRequest);
         return new ResponseEntity<>(createdQuestion, HttpStatus.OK);
     }

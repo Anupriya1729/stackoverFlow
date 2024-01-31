@@ -2,8 +2,10 @@ package com.project.stackoverflow.controller;
 
 import com.project.stackoverflow.dto.UserDTO;
 import com.project.stackoverflow.entity.UserInfo;
+import com.project.stackoverflow.exception.UserAlreadyExistsException;
 import com.project.stackoverflow.service.QuestionService;
 import com.project.stackoverflow.service.UserService;
+import com.project.stackoverflow.service.ValidatorService;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +28,9 @@ public class UserController {
     private QuestionService questionService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserInfo> createAccount(@RequestBody UserDTO createUserRequest) {
-        try {
-            UserInfo user = userService.registerUser(createUserRequest);
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<UserInfo> createAccount(@RequestBody UserDTO createUserRequest) throws UserAlreadyExistsException {
+        UserInfo user = userService.registerUser(createUserRequest);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @GetMapping("/{userId}")

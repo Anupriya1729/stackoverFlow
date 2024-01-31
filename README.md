@@ -17,8 +17,8 @@ http://localhost:8080/swagger-ui/index.html#/
     (TagName should not have spaces, in case of spaces system removes the spaces and allows search)
 9. User can search by text
    The search is performed on content of question/answer
-10. Everyone (Users+Non-users) should be able to view the Top questions on home page
-    Question priority is calculate by: most recent one first
+10. Should be able to view the Top questions on home page
+    Question priority is calculate by: most upvoted one first
 
 
 **Assumptions**:

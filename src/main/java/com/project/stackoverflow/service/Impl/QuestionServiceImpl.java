@@ -47,7 +47,7 @@ public class QuestionServiceImpl implements QuestionService {
 
             int upvotes = HelperMethods.countVotes(post, VoteType.UPVOTE);
             int downvotes = HelperMethods.countVotes(post, VoteType.DOWNVOTE);
-            int priority = upvotes - downvotes;
+            int priority = upvotes + downvotes; //Engagement
 
             return new QuestionsDTO(post.getId(), post.getTitle(), post.getContent(), post.getCreationDate(),
                     author.getName(), author.getId(), tags, upvotes, downvotes, priority);

@@ -3,8 +3,10 @@ package com.project.stackoverflow.service.Impl;
 import com.project.stackoverflow.constant.UserStatus;
 import com.project.stackoverflow.dto.UserDTO;
 import com.project.stackoverflow.entity.UserInfo;
+import com.project.stackoverflow.exception.UserAlreadyExistsException;
 import com.project.stackoverflow.repository.UserInfoRepository;
 import com.project.stackoverflow.service.UserService;
+import com.project.stackoverflow.service.ValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserInfoRepository userRepository;
 
-    public UserInfo registerUser(UserDTO createUserRequest) {
+    @Autowired
+    private ValidatorService validatorService;
+
+    public UserInfo registerUser(UserDTO createUserRequest) throws UserAlreadyExistsException {
+        if(!validatorService.isUserInfoUnique(createUserRequest.getEmail(), createUserRequest.getPhone(), createUserRequest.getUsername())){
+            throw new UserAlreadyExistsException("User Already exists.");
+        }
 
         UserInfo user = new UserInfo();
         user.setStatus(UserStatus.ACTIVE);
