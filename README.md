@@ -23,8 +23,7 @@ http://localhost:8080/swagger-ui/index.html#/
 
 **Assumptions**:
 - Any userInfo can upvote,downvote - reputation of userInfo not required
-- Multimedia Content: Questions and answers both can include photos/videos.
-- There is no particular Accepted answer
+- Multimedia Content: Questions and answers both can include photos/videos. 
 - Voting: Users can upvote or downvote both questions and answers (but not comments)
     once upvoted, if userInfo downvotes the same, the upvote gets cancelled.
     and upvote/ downvote only once

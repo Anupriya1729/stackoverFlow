@@ -1,14 +1,12 @@
 package com.project.stackoverflow.dto;
 
-import com.project.stackoverflow.constant.PostType;
-import com.project.stackoverflow.entity.Tag;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -57,5 +55,18 @@ public class PostDTO {
 
     public PostDTO(String message) {
         this.message = message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PostDTO postDTO = (PostDTO) o;
+        return Objects.equals(postId, postDTO.postId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(postId);
     }
 }

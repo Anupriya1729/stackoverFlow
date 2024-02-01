@@ -5,8 +5,9 @@ import com.project.stackoverflow.dto.QuestionsDTO;
 import com.project.stackoverflow.entity.Post;
 
 import java.util.List;
+import java.util.Set;
 
 public interface SearchService {
     List<QuestionsDTO> getAllQuestionsByTagName(String tagName);
-    List<PostDTO> searchPostsByString(String words);
+    Set<PostDTO> searchPostsByString(String words);
 }

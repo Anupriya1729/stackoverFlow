@@ -3,7 +3,6 @@ package com.project.stackoverflow.controller;
 import com.project.stackoverflow.dto.PostDTO;
 import com.project.stackoverflow.dto.QuestionsDTO;
 import com.project.stackoverflow.dto.SearchDTO;
-import com.project.stackoverflow.entity.Post;
 import com.project.stackoverflow.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RestController
@@ -21,8 +21,8 @@ public class SearchController {
     private SearchService searchService;
 
     @GetMapping("/search")
-    public ResponseEntity<List<PostDTO>> searchPostsByText(@RequestBody SearchDTO searchQuery) {
-        List<PostDTO> questions = searchService.searchPostsByString(searchQuery.getQuery());
+    public ResponseEntity<Set<PostDTO>> searchPostsByText(@RequestBody SearchDTO searchQuery) {
+        Set<PostDTO> questions = searchService.searchPostsByString(searchQuery.getQuery());
         return new ResponseEntity<>(questions, HttpStatus.OK);
     }
 

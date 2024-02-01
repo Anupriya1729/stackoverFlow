@@ -47,7 +47,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public List<PostDTO> searchPostsByString(String words) {
+    public Set<PostDTO> searchPostsByString(String words) {
         //Users can search questions/answers by text
         //user enters a string
         //we search all the questions/answer that contain the string in content in the POST table
@@ -55,7 +55,7 @@ public class SearchServiceImpl implements SearchService {
 
         Set<String> keywords = extractKeywords(words);
 
-        List<PostDTO> matchingPosts = new ArrayList<>();
+        Set<PostDTO> matchingPosts = new HashSet<>();
 
         // Search for posts using each keyword
         for (String keyword : keywords) {
