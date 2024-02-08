@@ -1,5 +1,7 @@
 package com.project.stackoverflow.dto;
 
+import com.project.stackoverflow.entity.Media;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +16,9 @@ import java.util.Set;
 public class PostDTO {
     private Long postId;
     private Long userId;
+    @NotNull
     private String title;
+    @NotNull
     private String content;
     private String postType;
     private Integer upvoteCount;

@@ -2,6 +2,7 @@ package com.project.stackoverflow.util;
 
 import com.project.stackoverflow.constant.PostType;
 import com.project.stackoverflow.constant.VoteType;
+import com.project.stackoverflow.dto.MediaDTO;
 import com.project.stackoverflow.dto.PostDTO;
 import com.project.stackoverflow.dto.QuestionsDTO;
 import com.project.stackoverflow.entity.Post;
@@ -28,12 +29,23 @@ public class Mapper {
                 HelperMethods.countVotes(post, VoteType.UPVOTE),
                 HelperMethods.countVotes(post, VoteType.DOWNVOTE),
                 post.getStatus() != null ? post.getStatus().name() : null,
-                post.getCreationDate().toString(),
-                post.getModificationDate().toString(),
+                post.getCreationDate() != null? post.getCreationDate().toString(): null,
+                post.getModificationDate() != null? post.getModificationDate().toString(): null,
                 post.getTags() != null ? post.getTags().stream().map(Tag::getTagName).collect(Collectors.toSet()) : null );
 
         if(PostType.ANSWER.equals(post.getPostType())){
             postDTO.setParentId(post.getParentQuestion().getId());
+        }
+
+        if (post.getMedia() != null && !post.getMedia().isEmpty()) {
+            postDTO.setMedia(post.getMedia().stream().filter(media -> media != null).map(media -> {
+                MediaDTO mediaDTO = new MediaDTO();
+                if (media != null) {
+                    mediaDTO.setMediaId(media.getId());
+                    mediaDTO.setUrl(media.getUrl());
+                }
+                return mediaDTO;
+            }).toList());
         }
 
         return postDTO;

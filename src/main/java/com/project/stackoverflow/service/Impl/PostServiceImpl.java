@@ -77,13 +77,13 @@ public class PostServiceImpl implements PostService {
         post.setUser(user.get());
         post.setCreationDate(LocalDateTime.now());
         post.setModificationDate(post.getCreationDate());
-        post.setMedia(null);
         post.setComments(new ArrayList<>());
         post.setVotes(new ArrayList<>());
 
-        saveMedia(post, createPostRequest.getMedia());
+        List<Media> media= saveMedia(post, createPostRequest.getMedia());
+        post.setMedia(media);
 
-        post = postRepository.save(post);
+        postRepository.save(post);
 
         if (PostType.QUESTION.equals(post.getPostType())) {
             questionService.addTagsToQuestion(post.getId(), createPostRequest.getTags(), true, post);
@@ -111,9 +111,10 @@ public class PostServiceImpl implements PostService {
         }
     }
 
-    private void saveMedia(Post post, List<MediaDTO> mediaRequests) {
+    private List<Media> saveMedia(Post post, List<MediaDTO> mediaRequests) {
+        List<Media> mediaList = new ArrayList<>();
         if (mediaRequests != null) {
-            List<Media> mediaList = mediaRequests.stream()
+            mediaList = mediaRequests.stream()
                     .map(mediaRequest -> {
                         Media media = new Media();
                         media.setUrl(mediaRequest.getUrl());
@@ -124,6 +125,9 @@ public class PostServiceImpl implements PostService {
 
             post.setMedia(mediaList);
         }
+        postRepository.save(post);
+
+        return mediaList;
     }
 
     public PostDTO getPostById(Long postId) throws PostNotFoundException {

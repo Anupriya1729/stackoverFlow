@@ -20,6 +20,12 @@ http://localhost:8080/swagger-ui/index.html#/
 10. Should be able to view the Top questions on home page
     Question priority is calculate by: most upvoted one first
 
+**Non-Functional Requirements**
+1. Availability
+2. Latency : Quick Response
+3. Eventual Consistency is Ok
+4. Questions/Answer once created should always be stored in system unless deleted by user or moderator.
+
 
 **Assumptions**:
 - Any userInfo can upvote,downvote - reputation of userInfo not required
@@ -28,9 +34,12 @@ http://localhost:8080/swagger-ui/index.html#/
     once upvoted, if userInfo downvotes the same, the upvote gets cancelled.
     and upvote/ downvote only once
 - Comments: Users can add comments to both questions and answers.
+- If a user upvotes a post, and then downvotes it - the upvote gets cancelled
 - Tag System: Tags cannot have spaces, and the system removes spaces for searches.
 - Homepage Ranking: Question priority is calculated based on the number of upvotes
   In case of a tie, the most recent question is displayed first
-
+- Comment cannot be added on another comment (Integrated comment is not there, only singular comment)
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
+
+Capacity Estimations:

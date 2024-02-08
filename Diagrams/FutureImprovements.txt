@@ -1,10 +1,1 @@
-1. We can improve the search, I have implemented a naive approach
-Which fetched the keywords from query and searches it in DB.
-Indexing is added on Content column of Post table.
-
-There is full-text search.
-We can keep the content of post in a No-SQL DB. SQL Db is not good for full text searches.
-
-We keep postId and content in NoSQL DB.
-And add index on content
-When we search , inverted index is created.
+For demo purpose this project is monolith, but we can break it in microservices.

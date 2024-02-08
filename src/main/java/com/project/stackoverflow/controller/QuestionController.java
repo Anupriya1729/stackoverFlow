@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,11 +32,12 @@ public class QuestionController {
     @Autowired
     private PostService postService;
 
-    @PostMapping("/{questionId}/add-tag")
+    @PostMapping("/{questionId}/addTag")
     public ResponseEntity<PostDTO> addTagToQuestion (
             @PathVariable Long questionId,
-            @RequestBody Set<String> addTagRequest) throws PostNotFoundException, MultipleTagsFoundException{
-        PostDTO updatedQuestion = questionService.addTagsToQuestion(questionId, addTagRequest, false, null);
+            @RequestBody List<String> addTagRequest) throws PostNotFoundException, MultipleTagsFoundException{
+        Set<String> tags = new HashSet<>(addTagRequest);
+        PostDTO updatedQuestion = questionService.addTagsToQuestion(questionId, tags, false, null);
         return ResponseEntity.ok(updatedQuestion);
     }
 

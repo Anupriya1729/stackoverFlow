@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +19,7 @@ import java.util.Objects;
 @Table(name = "user_info", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"email", "phone"})
 })
-public class UserInfo {
+public class UserInfo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -36,11 +37,15 @@ public class UserInfo {
 
     @Column(unique = true)
     private String username;
+
+    @JsonIgnore
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<Post> posts;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<Comment> comments;
 
@@ -62,6 +67,13 @@ public class UserInfo {
             posts.add(post);
             post.setUser(this);
         }
+    }
+
+    public List<Post> getPosts() {
+        if (posts == null) {
+            posts = new ArrayList<>();
+        }
+        return posts;
     }
 
     @Override
